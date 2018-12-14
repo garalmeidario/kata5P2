@@ -1,19 +1,20 @@
 package kata5p2;
+
 import java.io.IOException;
 import view.MailListReader;
 import model.Mail;
 import view.MailHistogramBuilder;
 import model.Histogram;
-import view.HistogramDisplay;
 import java.util.List;
+import view.HistogramDisplay;
 
 public class kata5P2 {
     
-    static List<Mail> listMails;
+    static List<String> listMails;
     static Histogram c;
     
     public static void main(String[] args) throws IOException{
-    	input();
+        input();
         process();
         output();
     }
@@ -22,7 +23,7 @@ public class kata5P2 {
     
     public static void input() throws IOException{
         MailListReader a = new MailListReader();
-        listMails = a.read("C:\\Users\\Armando\\Desktop\\a.txt");
+        listMails = a.read("jdbc:sqlite:Kata5.db", "EMAIL");
     }
     
     public static void process(){

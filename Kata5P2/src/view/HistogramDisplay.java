@@ -52,5 +52,3 @@ public class HistogramDisplay extends ApplicationFrame{
         return dataset;
     }
 }
-
-

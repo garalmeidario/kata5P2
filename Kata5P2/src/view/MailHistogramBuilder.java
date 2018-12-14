@@ -8,10 +8,10 @@ public class MailHistogramBuilder {
     
     public MailHistogramBuilder(){}
     
-    public Histogram<String> build (List<Mail> mails){
+    public Histogram<String> build (List<String> mails){
         Histogram<String> histogram = new Histogram();
-        for (Mail mail : mails) {
-            histogram.increment(mail.getDomain());
+        for (String mail : mails) {
+            histogram.increment(mail);
         }
         return histogram;
     }

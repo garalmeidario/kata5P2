@@ -9,23 +9,27 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 
-public class MailListReader {
+public class MailListReader{
     
     public MailListReader(){}
     
-    public List<Mail> read(String fileName) throws IOException{
-        List<Mail> mails = new ArrayList<>();
-        try (BufferedReader input = new BufferedReader(new FileReader(fileName))) {
-            String token;
-            while((token = input.readLine()) != null) {
-                if(token.matches(".+@(.+[.].+)")){
-                    mails.add(new Mail(token));
-                }
-            }
-            input.close();
-        }catch (FileNotFoundException e){
-            System.out.println("File not found");
+    public List<String> read(String url, String table) throws IOException{
+        List<String> mails = new ArrayList<>();
+        String sql = "SELECT * FROM " + table;
+        try (Connection conn = DriverManager.getConnection(url); 
+                Statement stmt = conn.createStatement(); 
+                ResultSet rs = stmt.executeQuery(sql)){
+            while (rs.next()) { 
+                mails.add(rs.getString("mail")); 
+            } 
+        } catch (SQLException e) { 
+            System.out.println(e.getMessage()); 
         }
         return mails;
     }
